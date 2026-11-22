@@ -24,7 +24,7 @@ let dbPromise;let demoSeedPromise;
 async function connectDB(){if(mongoose.connection.readyState!==1){if(!process.env.MONGODB_URI)throw new Error("Database is not configured. Set MONGODB_URI.");if(!dbPromise)dbPromise=mongoose.connect(process.env.MONGODB_URI,{serverSelectionTimeoutMS:8000});await dbPromise;}if(process.env.DEMO_ACCOUNT_ENABLED==="true"){if(!demoSeedPromise)demoSeedPromise=seedDemo();await demoSeedPromise;}}
 async function seedDemo(){
  if(process.env.DEMO_ACCOUNT_ENABLED!=="true")return;
- const email=(process.env.DEMO_EMAIL||"demo@swapnotech.com").toLowerCase(),password=process.env.DEMO_PASSWORD;
+ const email=(process.env.DEMO_EMAIL||"demo@swapnotech.com").toLowerCase(),password=process.env.DEMO_PASSWORD||"PreviewSMM!2026";
  if(!password||password.length<12)throw new Error("DEMO_PASSWORD must be set to a unique password of at least 12 characters.");
  let user=await User.findOne({email});
  if(!user){user=await User.create({name:"Swapno Tech Demo",email,passwordHash:await bcrypt.hash(password,12),balance:1000,demo:true});await Ledger.create({userId:user._id,kind:"deposit_request",amount:1000,note:"Demo starting balance"});}
