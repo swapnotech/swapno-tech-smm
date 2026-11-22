@@ -1,4 +1,4 @@
-const API_URL=process.env.RESELLERSMM_API_URL||"https://resellersmm.com/api/v2";
+const API_URL=process.env.RESELLERSMM_API_URL||"https://my.smmstarpro.com/api/v2";
 /** Server-only provider adapter. Never import from client code. Node HTTPS certificate validation stays enabled. */
 export async function resellerRequest(action,fields={}){
   const key=process.env.RESELLERSMM_API_KEY;
