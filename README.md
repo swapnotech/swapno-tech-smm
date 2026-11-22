@@ -1,17 +1,17 @@
 # Swapno Tech SMM
 
-MERN starter for an independent, Bangladesh-first SMM reseller panel. React/Vite client, Express API, MongoDB/Mongoose, BDT-oriented UI, and a server-only ResellerSMM v2 adapter. Provider boundary is designed to allow additional providers later.
+A Bangladesh-focused SMM panel foundation with React/Vite, Express, MongoDB/Mongoose, cookie-based sessions, BDT wallet UI/API, and a server-only ResellerSMM adapter.
 
-## Run locally
-1. Install Node.js 20+ and MongoDB.
-2. Copy `.env.example` to `.env` at repository root.
-3. Add your ResellerSMM API key to `RESELLERSMM_API_KEY` in that local `.env` file. Never paste it into chat, React code, or GitHub. Keep SSL verification enabled.
-4. Run `npm install`, then `npm run dev`.
+## Local setup
+1. Use Node.js 20+ and MongoDB (local or MongoDB Atlas).
+2. Copy `.env.example` to root `.env`. Set `MONGODB_URI` and a random `JWT_SECRET` of at least 32 characters.
+3. Run `npm install`, then `npm run dev`. Client: http://localhost:5173; API: http://localhost:4000/api/health.
 
-Client: http://localhost:5173 · API: http://localhost:4000/api/health
+## Demo account
+Set `DEMO_ACCOUNT_ENABLED=true`, `DEMO_EMAIL`, and a unique `DEMO_PASSWORD` (12+ characters) in the backend environment. A demo user and sample services are seeded after MongoDB connects. The demo starts with BDT 1,000 simulated balance. Demo orders are not sent to a provider. Do not use demo mode for real payments.
 
-## Where to place the API key
-Local: root `.env`, variable `RESELLERSMM_API_KEY`. Production: backend service's environment/secrets configuration, same variable. Do not set it in frontend/Vite environment variables. The repository intentionally includes only a blank-key `.env.example`.
+## Production configuration
+Set `MONGODB_URI`, `JWT_SECRET`, `CLIENT_ORIGIN`, and `NODE_ENV=production` in the backend/Vercel environment. Keep provider credentials server-side only. Never commit .env or paste secrets into chat.
 
-## Important scope / launch checklist
-This commit is the application foundation and dashboard shell, **not a production-ready panel**. Before accepting deposits or orders, implement and test account authentication, admin authorization, immutable wallet ledger with atomic balance updates, manual deposit approval, service sync, order state machine and reconciliation, rate limits, CSRF/CORS policy, audit logs, backups, and deployment secrets. Never trust prices, balances, or provider status supplied by the browser. Use idempotency for order creation and wallet mutations.
+## Safety and scope
+Registration/login use bcrypt password hashes and signed HTTP-only cookies. User data, orders, deposits and wallet ledger are stored in MongoDB. Deposits remain pending for manual review and are never credited automatically. Live provider fulfillment, protected admin workflows, atomic wallet reconciliation, rate limiting, CSRF hardening, and production monitoring must be completed and tested before accepting real funds or live orders. Non-demo order placement is intentionally disabled until provider integration and admin controls are configured.
