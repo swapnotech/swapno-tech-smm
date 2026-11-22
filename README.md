@@ -8,7 +8,7 @@ A Bangladesh-focused SMM panel foundation with React/Vite, Express, MongoDB/Mong
 3. Run `npm install`, then `npm run dev`. Client: http://localhost:5173; API: http://localhost:4000/api/health.
 
 ## Demo account
-Set `DEMO_ACCOUNT_ENABLED=true`, `DEMO_EMAIL`, and a unique `DEMO_PASSWORD` (12+ characters) in the backend environment. A demo user and sample services are seeded after MongoDB connects. The demo starts with BDT 1,000 simulated balance. Demo orders are not sent to a provider. Do not use demo mode for real payments.
+Set `DEMO_ACCOUNT_ENABLED=true` in the backend environment. Unless overridden, the seeded preview login is `demo@swapnotech.com` / `PreviewSMM!2026`. The demo user and sample services are created after MongoDB connects; the account starts with BDT 1,000 simulated balance. Demo orders are not sent to a provider and deposits are disabled. This public demo password is only for an isolated demo account; never reuse it for a real account.
 
 ## Production configuration
 Set `MONGODB_URI`, `JWT_SECRET`, `CLIENT_ORIGIN`, and `NODE_ENV=production` in the backend/Vercel environment. Keep provider credentials server-side only. Never commit .env or paste secrets into chat.
